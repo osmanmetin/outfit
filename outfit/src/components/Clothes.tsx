@@ -15,10 +15,9 @@ interface ClothesProps {
 }
 
 const Clothes: FC<ClothesProps> = ({ type, label }) => {
-    const [clothes, setClothes] = useState<any[] | null>(null);
     const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
 
-    const { fit, setFit } = useFitStore()
+    const { fit, setFit }: { fit: any, setFit: any } = useFitStore()
 
     const fetchClothes = async () => {
         const { data } = await supabase.storage.from('outfit').list(`${type}`)
@@ -50,7 +49,7 @@ const Clothes: FC<ClothesProps> = ({ type, label }) => {
             </div>
             <div style={{ display: 'flex' }}>
                 {!!fit &&
-                    fit?.[type]?.map((item) => (
+                    fit?.[type]?.map((item: any) => (
                         <ImageWrapper key={item?.name}>
                             <Image
                                 src={`https://tcaarwsnfslrxsffrdra.supabase.co/storage/v1/object/public/outfit/${type}/${item.name}`}

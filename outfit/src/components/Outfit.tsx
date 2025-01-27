@@ -2,20 +2,20 @@ import { useState } from "react"
 import useFitStore from "../store/FitsStore"
 import { Combination, Pant, Shirt, Shoes, TopWear, Image } from "./styles"
 
-interface ClothesCount {
-    head: number
-    shirt: number
-    jack: number
-    pant: number
-    shoe: number
-}
+// interface ClothesCount {
+//     head: number
+//     shirt: number
+//     jack: number
+//     pant: number
+//     shoe: number
+// }
 
 
 export const Outfit = () => {
-    const { fit } = useFitStore()
+    const { fit }: { fit: any } = useFitStore()
     console.log('Fits', fit)
 
-    const [clothesCount, setClothesCount] = useState<ClothesCount>({
+    const [clothesCount, setClothesCount] = useState<any>({
         head: 0,
         shirt: 0,
         jack: 0,
@@ -26,12 +26,12 @@ export const Outfit = () => {
 
     const handleClickClothes = (type: string) => {
         if (fit?.[type].length - 1 !== clothesCount?.[type]) {
-            setClothesCount((prev) => ({
+            setClothesCount((prev: any) => ({
                 ...prev,
                 [type]: prev?.[type] + 1
             }))
         } else {
-            setClothesCount((prev) => ({
+            setClothesCount((prev: any) => ({
                 ...prev,
                 [type]: 0
             }))

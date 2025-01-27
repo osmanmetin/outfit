@@ -1,10 +1,10 @@
 
 import React, { useState, ChangeEvent, useEffect } from "react";
-import axios from 'axios';
+
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { Image, ImageWrapper, Loader } from "./styles";
 import supabase from "../config/supabaseClient";
-import { initializeModel, processImage } from "../api/process";
+import { initializeModel } from "../api/process";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -20,9 +20,9 @@ interface UploadProps {
 }
 
 
-const Upload: React.FC<UploadProps> = ({ isOpen, type, onSuccess, onClose }) => {
+const Upload: React.FC<UploadProps> = ({ isOpen, type, onClose }) => {
     const [loading, setLoading] = useState<boolean>(false);
-    const [finalUrl, setFinalUrl] = useState<string | null>(null);
+    const [finalUrl, setFinalUrl] = useState<any | null>(null);
     const [file, setFile] = useState<any>(null);
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const Upload: React.FC<UploadProps> = ({ isOpen, type, onSuccess, onClose }) => 
 
         const filePath = `${type}/${uuidv4()}`
 
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
             .from('outfit')
             .upload(filePath, file)
 
@@ -104,7 +104,7 @@ const Upload: React.FC<UploadProps> = ({ isOpen, type, onSuccess, onClose }) => 
                         <input type="file" id="userImg" multiple onChange={handleFileInputChange} required />
                     </form>}
                 {finalUrl &&
-                    finalUrl?.map((item) =>
+                    finalUrl?.map((item: any) =>
                         <ImageWrapper isLoading={loading}>
                             <>
                                 {loading && <Loader />}
